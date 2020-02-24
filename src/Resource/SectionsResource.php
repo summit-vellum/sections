@@ -12,8 +12,10 @@ class SectionsResource extends Sections implements Formable
     public function fields()
     {
         return [
-            ID::make()->sortable()->searchable(),
-            Text::make('Name')
+            ID::make('Id')
+            	// ->relation('id', 'id')
+            	->searchable(),
+            Text::make('Name', 'name')
             	->autoSlug(),
             Text::make('Parent Id'),
             Text::make('Url')
