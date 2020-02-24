@@ -15,6 +15,16 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->tinyInteger('parent_id')->nullable();
+            $table->string('slug', 255);
+            $table->string('url', 255);
+            $table->string('name', 255);
+            $table->string('title', 255);
+            $table->string('description', 255)->nullable();
+            $table->string('keywords', 255)->nullable();
+            $table->string('type', 255)->nullable();
+            $table->tinyInteger('order')->nullable();
+            $table->tinyInteger('status')->nullable();
             $table->timestamps();
         });
     }
