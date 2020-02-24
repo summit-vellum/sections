@@ -19,13 +19,13 @@ class CreateSectionsTable extends Migration
             $table->string('slug', 255);
             $table->string('url', 255);
             $table->string('name', 255);
-            $table->string('title', 255);
-            $table->string('description', 255)->nullable();
-            $table->string('keywords', 255)->nullable();
-            $table->string('type', 255)->nullable();
-            $table->tinyInteger('order')->nullable();
-            $table->tinyInteger('status')->nullable();
+            $table->string('title', 255)->comment('section\'s meta title');
+            $table->mediumText('description')->nullable()->comment('section\'s meta description');
+            $table->text('keywords')->nullable()->comment('section\'s meta keywords');
+            $table->tinyInteger('order')->nullable()->comment('order of render in menu (front end)');
+            $table->tinyInteger('status')->nullable()->comment('1=active 0=inactive');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

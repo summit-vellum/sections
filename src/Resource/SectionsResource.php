@@ -5,6 +5,7 @@ namespace Quill\Sections\Resource;
 use Quill\Html\Fields\ID;
 use Quill\Sections\Models\Sections;
 use Vellum\Contracts\Formable;
+use Quill\Html\Fields\Text;
 
 class SectionsResource extends Sections implements Formable
 {
@@ -12,6 +13,16 @@ class SectionsResource extends Sections implements Formable
     {
         return [
             ID::make()->sortable()->searchable(),
+            Text::make('Name')
+            	->autoSlug(),
+            Text::make('Parent Id'),
+            Text::make('Url')
+            	->autoSlug(),
+            Text::make('Slug')
+            	->autoSlugSource('name'),
+            Text::make('Title'),
+            Text::make('Keywords'),
+            Text::make('Description')
         ];
     }
 
