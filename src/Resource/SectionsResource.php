@@ -19,10 +19,14 @@ class SectionsResource extends Sections implements Formable
             	->relation('name', 'name')
             	->modify(function($name, $sections){
             		if ($sections->status) {
-            			return '<span class="pull-left status status-publish">
+            			$statusClass = 'status-publish';
+            		} else {
+            			$statusClass = 'status-draft';
+            		}
+
+            		return '<span class="pull-left status '.$statusClass.'">
             					<div class="ml-4 middle">'.$name.'</div>
             					</span>';
-            		}
                 })
             	->autoSlug()
             	->displayAsEdit()
