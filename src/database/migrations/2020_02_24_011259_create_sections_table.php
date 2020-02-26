@@ -16,10 +16,10 @@ class CreateSectionsTable extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('parent_id')->nullable();
-            $table->string('slug', 255);
-            $table->string('url', 255);
-            $table->string('name', 255);
-            $table->string('title', 255)->comment('section\'s meta title');
+            $table->string('slug', 255)->nullable();
+            $table->string('url', 255)->nullable();
+            $table->string('name', 255)->nullable();
+            $table->string('title', 255)->nullable()->comment('section\'s meta title');
             $table->mediumText('description')->nullable()->comment('section\'s meta description');
             $table->text('keywords')->nullable()->comment('section\'s meta keywords');
             $table->tinyInteger('order')->nullable()->comment('order of render in menu (front end)');
