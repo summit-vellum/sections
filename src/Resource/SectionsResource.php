@@ -13,7 +13,7 @@ class SectionsResource extends Sections implements Formable
     public function fields()
     {
         return [
-            ID::make('id'),
+            ID::make('id')->searchable()->sortable(),
 
             Label::make('Section', 'name')
             	->relation('name', 'name')
@@ -92,7 +92,7 @@ class SectionsResource extends Sections implements Formable
     public function filters()
     {
         return [
-            //
+            \Quill\Sections\Filters\Status::class
         ];
     }
 

@@ -3,9 +3,11 @@
 namespace Quill\Sections\Models;
 
 use Vellum\Models\BaseModel;
+use Quill\Status\Traits\HasStatus;
 
 class Sections extends BaseModel
 {
+	use HasStatus;
 
     protected $table = 'sections';
 
