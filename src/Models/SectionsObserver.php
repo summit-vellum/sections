@@ -10,19 +10,21 @@ use Quill\Sections\Events\SectionsSaved;
 use Quill\Sections\Events\SectionsUpdating;
 use Quill\Sections\Events\SectionsUpdated;
 use Quill\Sections\Models\Sections;
+use Quill\Sections\Http\Controllers\BaseController;
 
-class SectionsObserver
+class SectionsObserver extends BaseController
 {
 
     public function creating(Sections $sections)
     {
-        // creating logic... 
+        // creating logic...
         event(new SectionsCreating($sections));
     }
 
     public function created(Sections $sections)
     {
         // created logic...
+        $sections->activity_code = $this->activity_code['created'];
         event(new SectionsCreated($sections));
     }
 
@@ -47,6 +49,7 @@ class SectionsObserver
     public function updated(Sections $sections)
     {
         // updated logic...
+        $sections->activity_code = $this->activity_code['edited'];
         event(new SectionsUpdated($sections));
     }
 
