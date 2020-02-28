@@ -19,8 +19,8 @@ class Status extends Filter
     public function applyFilter(Builder $builder)
     {
     	if (request($this->filterName()) != null) {
-    		$builder->with('status')
-	            ->whereHas('status', function($query) {
+    		$builder->with('state')
+	            ->whereHas('state', function($query) {
 	                $query->where($this->foreignKey(), request($this->filterName()));
 	        });
     	}
@@ -48,7 +48,7 @@ class Status extends Filter
      */
     public function options()
     {
-        return \Quill\Status\Models\Status::class;
+        return \Quill\Status\Models\State::class;
     }
 
 }
