@@ -46,7 +46,7 @@ class SectionsResource extends Sections implements Formable
         	->setLabelElement('h3'),
 
             Text::make('Slug')
-            	->autoSlugSource('name')
+            	->autoSlugSource('name', 'once')
             	->hideOnForms()
             	->hideFromIndex(),
 
