@@ -20,10 +20,13 @@ class SectionsTableSeeder extends Seeder
     	$channels = $old_db->table('tbl_channels');
 
     	$this->command->getOutput()->progressStart($channels->count());
-    	$sections = $channels->orderBy('channels_id')->chunk($itemsPerBatch, function($sections) {
+
+    	$sections = $channels->orderBy('channels_id')->chunk($itemsPerBatch, function($sections){
+
     		foreach ($sections as $section) {
 
-    			$migratedSection = [
+    			$migratedSection = new Sections;
+    			$migratedSection->create([
     				'id' => $section->channels_id,
     				'parent_id' => $section->channels_parent_id,
     				'slug' => $section->channels_slug,
@@ -36,14 +39,14 @@ class SectionsTableSeeder extends Seeder
     				'status' => $section->channels_status,
     				'created_at' => $section->channels_date_created,
     				'updated_at' => $section->channels_date_modified
-    			];
 
-    			$vellumSection = new Sections;
-    			$vellumSection->create($migratedSection);
+    			]);
 
         		$this->command->getOutput()->progressAdvance();
     		}
+
     	});
+
     	$this->command->getOutput()->progressFinish();
     }
 
