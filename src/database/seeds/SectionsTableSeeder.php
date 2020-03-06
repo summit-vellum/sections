@@ -12,7 +12,9 @@ class SectionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Sections::class, 10)->create();
+    	$old_db = DB::connection('olddb');
+    	dd(DB::connection()->getPdo());
+        //factory(Sections::class, 10)->create();
     }
 
 }
