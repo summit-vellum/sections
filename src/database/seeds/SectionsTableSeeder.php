@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Quill\Sections\Models\Sections;
 
+
 class SectionsTableSeeder extends Seeder
 {
    	/**
@@ -13,8 +14,37 @@ class SectionsTableSeeder extends Seeder
     public function run()
     {
     	$old_db = DB::connection('olddb');
-    	dd(DB::connection()->getPdo());
-        //factory(Sections::class, 10)->create();
+
+    	$itemsPerBatch = 50;
+
+    	$channels = $old_db->table('tbl_channels');
+
+    	$this->command->getOutput()->progressStart($channels->count());
+    	$sections = $channels->orderBy('channels_id')->chunk($itemsPerBatch, function($sections) {
+    		foreach ($sections as $section) {
+
+    			$migratedSection = [
+    				'id' => $section->channels_id,
+    				'parent_id' => $section->channels_parent_id,
+    				'slug' => $section->channels_slug,
+    				'url' => $section->channels_url,
+    				'name' => $section->channels_name,
+    				'title' => $section->channels_title,
+    				'description' => $section->channels_description,
+    				'keywords' => $section->channels_keywords,
+    				'order' => $section->channels_order,
+    				'status' => $section->channels_status,
+    				'created_at' => $section->channels_date_created,
+    				'updated_at' => $section->channels_date_modified
+    			];
+
+    			$vellumSection = new Sections;
+    			$vellumSection->create($migratedSection);
+
+        		$this->command->getOutput()->progressAdvance();
+    		}
+    	});
+    	$this->command->getOutput()->progressFinish();
     }
 
 }
