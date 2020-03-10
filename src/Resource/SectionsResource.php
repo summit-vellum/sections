@@ -24,14 +24,14 @@ class SectionsResource extends Sections implements Formable
             			$statusClass = 'status-draft';
             		}
 
-            		return '<span class="pull-left status '.$statusClass.'">
-            					<div class="ml-4 middle">'.$name.'</div>
-            					</span>';
+            		return '<span class="pull-left status '.$statusClass.'"></span>
+            					<div class="ml-4 middle">'.$name.'</div>';
                 })
             	->autoSlug()
             	->displayAsEdit()
             	->searchable()
-            	->setLabelElement('h1'),
+            	->setLabelElement('h1')
+            	->thWidthAttribute('30%'),
 
             Text::make('Parent Section', 'parent_id')
             	->relation('parent_id', 'parent_id')
@@ -39,7 +39,8 @@ class SectionsResource extends Sections implements Formable
                     return '<strong>'.$sections->getParent()['name'].'</strong>';
                 })
                 ->hideOnForms()
-                ->classes('cf-input'),
+                ->classes('cf-input')
+                ->thWidthAttribute('20%'),
 
            Label::make('Url')
         	->relation('url', 'url')

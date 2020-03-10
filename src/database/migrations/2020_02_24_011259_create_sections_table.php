@@ -26,6 +26,8 @@ class CreateSectionsTable extends Migration
             $table->tinyInteger('status')->nullable()->comment('1=active 0=inactive');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['id']);
         });
     }
 
