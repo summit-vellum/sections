@@ -103,4 +103,8 @@ class SectionsResource extends Sections implements Formable
         ];
     }
 
+    public function excludedFields()
+    {
+    }
+
 }
