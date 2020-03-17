@@ -7,6 +7,7 @@ use Quill\Sections\Models\Sections;
 use Vellum\Contracts\Formable;
 use Quill\Html\Fields\Text;
 use Quill\Html\Fields\Label;
+use Request;
 
 class SectionsResource extends Sections implements Formable
 {
@@ -18,14 +19,18 @@ class SectionsResource extends Sections implements Formable
             Label::make('Section', 'name')
             	->relation('name', 'name')
             	->modify(function($name, $sections){
-            		if ($sections->status) {
-            			$statusClass = 'status-publish';
+            		if (count(Request::segments()) > 1) {
+            			return $name;
             		} else {
-            			$statusClass = 'status-draft';
-            		}
+            			if ($sections->status) {
+	            			$statusClass = 'status-publish';
+	            		} else {
+	            			$statusClass = 'status-draft';
+	            		}
 
-            		return '<span class="pull-left status '.$statusClass.'"></span>
-            					<div class="ml-4 middle">'.$name.'</div>';
+	            		return '<span class="pull-left status '.$statusClass.'"></span>
+	            					<div class="ml-4 middle">'.$name.'</div>';
+            		}
                 })
             	->autoSlug()
             	->displayAsEdit()
@@ -54,8 +59,12 @@ class SectionsResource extends Sections implements Formable
             Text::make('Page Title', 'title')
             	->relation('title', 'title')
             	->modify(function($title, $sections){
-            		if (!empty($title)) {
-            			return '<span class="status status-draft"></span>';
+            		if (count(Request::segments()) > 1) {
+            			return $title;
+            		} else {
+            			if (!empty($title)) {
+	            			return '<span class="status status-draft"></span>';
+	            		}
             		}
                 })
             	->classes('cf-input')
@@ -64,8 +73,12 @@ class SectionsResource extends Sections implements Formable
             Text::make('Meta Description', 'description')
             	->relation('description', 'description')
             	->modify(function($description, $sections){
-            		if (!empty($description)) {
-            			return '<span class="status status-draft"></span>';
+            		if (count(Request::segments()) > 1) {
+            			return $description;
+            		} else {
+            			if (!empty($description)) {
+	            			return '<span class="status status-draft"></span>';
+	            		}
             		}
                 })
             	->help('Provide a short summary of what visitors should expect to read in your channel. This is displayed on search engine results pages.')
@@ -76,8 +89,12 @@ class SectionsResource extends Sections implements Formable
             Text::make('Meta Tags', 'keywords')
             	->relation('keywords', 'keywords')
             	->modify(function($keywords, $sections){
-            		if (!empty($keywords)) {
-            			return '<span class="status status-draft"></span>';
+            		if (count(Request::segments()) > 1) {
+            			return $keywords;
+            		} else {
+            			if (!empty($keywords)) {
+	            			return '<span class="status status-draft"></span>';
+	            		}
             		}
                 })
             	->help('Theses tags describes your page\'s content. They don\'t appear on the channel page itself but only in the html code. These tags help tell search engines what the page is about.')
@@ -105,6 +122,8 @@ class SectionsResource extends Sections implements Formable
 
     public function excludedFields()
     {
+    	return [
+    	];
     }
 
 }
