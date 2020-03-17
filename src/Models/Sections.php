@@ -11,6 +11,11 @@ class Sections extends BaseModel
 
     protected $table = 'sections';
 
+    public function scopeWhereActive($query)
+    {
+    	return $query->where('status', 1);
+    }
+
     public function getParent()
     {
     	return $this->parent_channel;
