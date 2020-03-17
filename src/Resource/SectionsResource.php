@@ -41,7 +41,11 @@ class SectionsResource extends Sections implements Formable
             Text::make('Parent Section', 'parent_id')
             	->relation('parent_id', 'parent_id')
             	->modify(function($parent_id, $sections){
-                    return '<strong>'.$sections->getParent()['name'].'</strong>';
+            		if (count(Request::segments()) > 1) {
+            			return $parent_id;
+            		} else {
+            			return '<strong>'.$sections->getParent()['name'].'</strong>';
+            		}
                 })
                 ->hideOnForms()
                 ->classes('cf-input')
