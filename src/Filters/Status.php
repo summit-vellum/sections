@@ -51,4 +51,28 @@ class Status extends Filter
         return \Quill\Status\Models\State::class;
     }
 
+    public function js()
+    {
+    	return [
+    		//
+    	];
+    }
+
+    public function css()
+    {
+    	return [
+    		//
+    	];
+    }
+
+    public function html()
+    {
+    	return '';
+    }
+
+    public function label()
+    {
+    	return 'Arrangement';
+    }
+
 }
