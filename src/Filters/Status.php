@@ -72,7 +72,7 @@ class Status extends Filter
 
     public function label()
     {
-    	return 'Arrangement';
+    	return 'Status';
     }
 
 }
