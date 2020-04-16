@@ -5,92 +5,29 @@ namespace Quill\Sections\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Vellum\Contracts\Resource;
+use Quill\Sections\Models\Sections;
 
 class SectionsController extends Controller
 {
-    protected $sections;
-
-    public function __construct(Resource $resource)
-    {
-        $this->sections = $resource;
-    }
-
     /**
-     * Display a listing of the resource.
+     * find section details.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function search(Request $request)
     {
-        $data['column_name'] = $this->sections->getProperties();
-        $data['rows'] = $this->sections->getValues();
+    	$id = $request->get('id');
+    	$success = false;
+    	$section = Sections::whereId($id)->whereActive()->first();
 
-        return view('sections::index');
+    	if ($section) {
+    		$success = true;
+    	}
+
+    	return response()->json([
+    		'success' => $success,
+    		'section' => $section
+    	]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -13,6 +13,6 @@
 
 Route::group(['middleware' => 'web'], function() {
 
-    // ... Route logic goes here
+    Route::post('/sections/search-section', '\Quill\Sections\Http\Controllers\SectionsController@search');
 
 });

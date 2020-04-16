@@ -16,6 +16,11 @@ class Sections extends BaseModel
     	return $query->where('status', 1);
     }
 
+     public function scopeWhereId($query, $id)
+    {
+    	return $query->where('id', $id);
+    }
+
     public function getParent()
     {
     	return $this->parent_channel;
