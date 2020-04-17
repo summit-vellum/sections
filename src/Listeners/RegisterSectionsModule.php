@@ -21,7 +21,12 @@ class RegisterSectionsModule
             'parent' => '',
             'model' => \Quill\Sections\Models\Sections::class,
             'permissions' => [],
-            'description' => ''
+            'description' => '',
+            'navHeader' => [
+            	'left' => 'Channel',
+            	'right' => 'New Channel',
+            	'field' => 'name' //field to be rendered on the right side of the navheader on edit
+            ]
         ];
     }
 }
